@@ -22,14 +22,9 @@ def get_all_patients():
   for s in patient.find():
     output.append({
             'ID' : s['ID'],
-            'ECG_raw_value' : s['ECG_raw_value'],
-            'ECG_prediction' : s['ECG_prediction'],
-            'EEG_raw_value' : s['EEG_raw_value'],
-            'EEG_prediction' : s['EEG_prediction'],
             'pulse' : s['pulse'],
             'GPS' : s['GPS'],
-            'microphone_heart_prediction' : s['microphone_heart_prediction']
-            })
+                        })
   return jsonify({'result' : output})
 
 def import_data(self, request):
@@ -80,19 +75,11 @@ def print_req():
 def add_patient():
     patient = mongo.db.patients
     ID = request.json['ID']
-    ECG_raw_value = request.json['ECG_raw_value']
-    ECG_prediction = request.json['ECG_prediction']
-    EEG_raw_value = request.json['EEG_raw_value']
-    EEG_prediction = request.json['EEG_prediction']
     pulse = request.json['pulse']
     GPS = request.json['GPS']
     microphone_heart_prediction = request.json['microphone_heart_prediction']
     patient_id = patient.insert({
             'ID' : ID,
-            'ECG_raw_value' : ECG_raw_value,
-            'ECG_prediction' : ECG_prediction,
-            'EEG_raw_value' : EEG_raw_value,
-            'EEG_prediction' : EEG_prediction,
             'pulse' : pulse,
             'GPS' : GPS,
             'microphone_heart_prediction' : microphone_heart_prediction
@@ -101,10 +88,7 @@ def add_patient():
     new_patient = patient.find_one({'_id': patient_id })
     output = {
         'ID' : new_patient['ID'],
-        'ECG_raw_value' : new_patient['ECG_raw_value'],
-        'ECG_prediction' : new_patient['ECG_prediction'],
-        'EEG_raw_value' : new_patient['EEG_raw_value'],
-        'EEG_prediction' : new_patient['EEG_prediction'],
+        
         'pulse' : new_patient['pulse'],
         'GPS' : new_patient['GPS'],
         'microphone_heart_prediction' : new_patient['microphone_heart_prediction']
